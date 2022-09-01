@@ -19,7 +19,6 @@ jobs:
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: windows-latest
     env:
-      # Set your boost version
       BOOST_VERSION: 1.78.0
       # Set you boost path to the default one (I don't know if you can use variables here)
       BOOST_PATH: ${{github.workspace}}/boost/
@@ -28,7 +27,6 @@ jobs:
     - uses: actions/checkout@v3
   
     - name: Checkout submodules
-      run: git submodule update --init --recursive
     
 # Retrieve the cache, uses cache@v2
     - name: Cache boost
@@ -36,7 +34,6 @@ jobs:
       id: cache-boost
       with:
         # Set the path to cache
-        path: ${{env.BOOST_PATH}}
         # Use the version as the key to only cache the correct version
         key: boost-${{env.BOOST_VERSION}}
 
@@ -46,7 +43,6 @@ jobs:
       uses: MarkusJx/install-boost@v2.3.0
       with:
         # Set the boost version (required)
-        boost_version: ${{env.BOOST_VERSION}}
         # Set the install directory
         boost_install_dir: ${{env.BOOST_PATH}}
         # Set your platform version
